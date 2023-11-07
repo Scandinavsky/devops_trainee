@@ -1,0 +1,38 @@
+version: '3.6'
+
+services:
+
+  jenkins:
+    image: "jenkins/jenkins:lts"
+    container_name: "jenkins_test"
+    volumes:
+      - ./jenkins_home/:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - /usr/bin/docker:/usr/bin/docker
+    # network_mode: host
+    ports:
+      - 8080:8080
+      # - 50000:50000
+    restart: always
+
+# certbot:
+#     restart: unless-stopped
+#     image: certbot/certbot
+#     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+#     volumes:
+#     - /etc/localtime:/etc/localtime:ro
+#     - ./configs/certbot/conf:/etc/letsencrypt:rw
+#     - ./configs/certbot/www:/var/www/certbot:rw
+
+# nginx:
+#   restart: unless-stopped
+#   image: nginx:latest
+#   ports:
+#     - 80:80
+#     - 443:443
+#   command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+#   volumes:
+#     - ./configs/nginx:/etc/nginx/conf.d:ro
+#     - ./configs/certbot/conf:/etc/letsencrypt:rw
+#     - ./configs/certbot/www:/var/www/certbot:rw
+#     - ./logs/nginx:/var/log/nginx
