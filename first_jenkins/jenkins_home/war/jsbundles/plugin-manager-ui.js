@@ -1,7 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 7988:
+/***/ 4199:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12,14 +12,14 @@ var debounce_default = /*#__PURE__*/__webpack_require__.n(debounce);
 // EXTERNAL MODULE: ./src/main/js/templates/plugin-manager/available.hbs
 var available = __webpack_require__(4746);
 var available_default = /*#__PURE__*/__webpack_require__.n(available);
-// EXTERNAL MODULE: ./.yarn/cache/jquery-npm-3.7.0-a02a382bf4-907785e133.zip/node_modules/jquery/dist/jquery.js
-var jquery = __webpack_require__(205);
+// EXTERNAL MODULE: ./.yarn/cache/jquery-npm-3.7.1-eeeac0f21e-4370b8139d.zip/node_modules/jquery/dist/jquery.js
+var jquery = __webpack_require__(4198);
 var jquery_default = /*#__PURE__*/__webpack_require__.n(jquery);
 // EXTERNAL MODULE: ./.yarn/cache/window-handle-npm-1.0.1-369b8e9cbe-8f2c183a0d.zip/node_modules/window-handle/index.js
 var window_handle = __webpack_require__(30);
-// EXTERNAL MODULE: ./.yarn/cache/handlebars-npm-4.7.7-a9ccfabf80-1e79a43f5e.zip/node_modules/handlebars/dist/cjs/handlebars.runtime.js
-var handlebars_runtime = __webpack_require__(9856);
-var handlebars_runtime_default = /*#__PURE__*/__webpack_require__.n(handlebars_runtime);
+// EXTERNAL MODULE: ./.yarn/cache/handlebars-npm-4.7.8-25244c2c82-00e68bb5c1.zip/node_modules/handlebars/runtime.js
+var runtime = __webpack_require__(4389);
+var runtime_default = /*#__PURE__*/__webpack_require__.n(runtime);
 ;// CONCATENATED MODULE: ./src/main/js/util/jenkins.js
 /**
  * Jenkins JS Modules common utility functions
@@ -37,41 +37,6 @@ jenkins.baseUrl = function () {
     u = "";
   }
   return u;
-};
-
-// awful hack to get around JSONifying things with Prototype taking over wrong. ugh. Prototype is the worst.
-jenkins.stringify = function (o) {
-  if (Array.prototype.toJSON) {
-    // Prototype f's this up something bad
-    var protoJSON = {
-      a: Array.prototype.toJSON,
-      o: Object.prototype.toJSON,
-      h: Hash.prototype.toJSON,
-      s: String.prototype.toJSON
-    };
-    try {
-      delete Array.prototype.toJSON;
-      delete Object.prototype.toJSON;
-      delete Hash.prototype.toJSON;
-      delete String.prototype.toJSON;
-      return JSON.stringify(o);
-    } finally {
-      if (protoJSON.a) {
-        Array.prototype.toJSON = protoJSON.a;
-      }
-      if (protoJSON.o) {
-        Object.prototype.toJSON = protoJSON.o;
-      }
-      if (protoJSON.h) {
-        Hash.prototype.toJSON = protoJSON.h;
-      }
-      if (protoJSON.s) {
-        String.prototype.toJSON = protoJSON.s;
-      }
-    }
-  } else {
-    return JSON.stringify(o);
-  }
 };
 
 /**
@@ -103,7 +68,7 @@ jenkins.get = function (url, success, options) {
 };
 
 /**
- * Jenkins AJAX POST callback, formats data as a JSON object post (note: works around prototype.js ugliness using stringify() above)
+ * Jenkins AJAX POST callback, formats data as a JSON object post
  * If last parameter is an object, will be extended to jQuery options (e.g. pass { error: function() ... } to handle errors)
  */
 jenkins.post = function (url, data, success, options) {
@@ -129,7 +94,7 @@ jenkins.post = function (url, data, success, options) {
       formBody = jquery_default().extend({}, formBody);
       formBody[crumb.fieldName] = crumb.value;
     }
-    formBody = jenkins.stringify(formBody);
+    formBody = JSON.stringify(formBody);
   }
   var args = {
     url: jenkins.baseUrl() + url,
@@ -151,7 +116,7 @@ jenkins.post = function (url, data, success, options) {
  *  handlebars setup, done for backwards compatibility because some plugins depend on it
  */
 jenkins.initHandlebars = function () {
-  return (handlebars_runtime_default());
+  return (runtime_default());
 };
 
 /**
@@ -688,7 +653,7 @@ function updateInstallButtonState() {
 /***/ 4746:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var Handlebars = __webpack_require__(2280);
+var Handlebars = __webpack_require__(4389);
 function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -1035,7 +1000,7 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [216], function() { return __webpack_require__(7988); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [216], function() { return __webpack_require__(4199); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
